@@ -5,7 +5,11 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 function HomeClient({ email }: { email: string }) {
+  const [loading,setLoading]=useState(false)
+
+
   const handleLogin = () => {
+    setLoading(true)
     window.location.href = "/api/auth/login"
   }
   
@@ -89,8 +93,9 @@ function HomeClient({ email }: { email: string }) {
             <button
               className='px-5 py-2 rounded-full bg-black text-white text-sm font-medium hover:bg-zinc-800 transition disabled:opacity-60 flex items-center gap-2'
               onClick={handleLogin}
+              disabled={loading}
             >
-              Login
+              {loading?"Loading...":"Login"}
             </button>
           )}
         </div>
@@ -128,24 +133,29 @@ function HomeClient({ email }: { email: string }) {
             transition={{duration:0.7, delay:0.2}}
             className='relative'
           >
-            <div className='rounded-2xl bg-white shadow-2xl border border-zinc-200 p-6'>
-              <div className='text-sm text-zinc-500 mb-3'>
-                Live Chat Preview
-              </div>
-              <div className='space-y-3'> 
-                <div className='bg-black text-white rounded-lg px-4 py-2 text-sm ml-auto w-fit'>Do you offer cash on delivery</div>
-                <div className='bg-zinc-100 rounded-lg px-4 py-2 text-sm'>yes, Cash on delivery is available</div>
-              </div>
-              <motion.div
-                animate={{y:[0,-12,0] }}
-                transition={{repeat: Infinity, duration:3}}
-                className='ansolute -bottom-6 -right-6 w-14 h-14 rounded-full bg-black text-white flex items-center justify-center shadow-xl'
-
-              >
-              🗨️
-              </motion.div>
+            <div className="relative rounded-2xl bg-white shadow-2xl border border-zinc-200 p-6">
+            <div className="text-sm text-zinc-500 mb-3">
+              Live Chat Preview
             </div>
-            
+
+            <div className="space-y-3">
+              <div className="bg-black text-white rounded-lg px-4 py-2 text-sm ml-auto w-fit">
+                Do you offer cash on delivery?
+              </div>
+
+              <div className="bg-zinc-100 rounded-lg px-4 py-2 text-sm w-fit">
+                Yes, Cash on Delivery is available.
+              </div>
+            </div>
+
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ repeat: Infinity, duration: 3 }}
+              className="absolute -bottom-6 -right-6 w-14 h-14 rounded-full bg-black text-white flex items-center justify-center shadow-xl"
+            >
+              🗨️
+            </motion.div>
+          </div>
 
           </motion.div>
 

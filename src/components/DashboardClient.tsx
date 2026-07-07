@@ -59,7 +59,7 @@ function DashboardClient({ownerId}:{ownerId:string}) {
                     Support<span className='text-zinc-400'>AI</span>
                 </div>
 
-                <button className='px-4 py-2 rounded-lg border border-zinc-300 text-sm hover:bg-zinc-100 transition'>Embed ChatBot</button>
+                <button className='px-4 py-2 rounded-lg border border-zinc-300 text-sm hover:bg-zinc-100 transition' onClick={()=>navigate.push("/embed")}>Embed ChatBot</button>
 
 
             </div>
