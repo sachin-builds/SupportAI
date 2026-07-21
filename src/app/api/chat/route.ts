@@ -61,7 +61,9 @@ export async function POST(req:NextRequest){
         model: "gemini-2.5-flash",
         contents: prompt,
         });
-        const response = NextResponse.json(res.text)
+        const response = NextResponse.json({
+            response: res.text,
+        });
         response.headers.set("Access-Control-Allow-Origin","*");
         response.headers.set("Access-Control-Allow-Methods","POST,OPTIONS");
         response.headers.set("Access-Control-Allow-Headers","Content-Type");
