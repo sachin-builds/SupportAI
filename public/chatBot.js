@@ -111,6 +111,13 @@
   const sendBtn = document.querySelector("#chat-send");
   const messageArea = document.querySelector("#chat-messages");
 
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendBtn.click();
+    }
+  });
+
   function addMessage(text, from) {
     const bubble = document.createElement("div");
     bubble.innerHTML = text;
@@ -169,6 +176,7 @@
       });
 
       const data = await response.json();
+      console.log("API Response:", data);
 
       messageArea.removeChild(typing);
 
