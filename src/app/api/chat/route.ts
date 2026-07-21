@@ -71,7 +71,7 @@ export async function POST(req:NextRequest){
         
         return response
 
-    } catch (error) {
+    } catch (error: any) {
         const response= NextResponse.json(
                 {message:`chat error ${error}`},
                 {status:500}
