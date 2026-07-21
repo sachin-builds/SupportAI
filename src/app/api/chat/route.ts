@@ -72,15 +72,29 @@ export async function POST(req:NextRequest){
         return response
 
     } catch (error: any) {
-        const response= NextResponse.json(
-                {message:`chat error ${error}`},
-                {status:500}
-            )
-            response.headers.set("Access-Control-Allow-Origin","*");
-        response.headers.set("Access-Control-Allow-Methods","POST,OPTIONS");
-        response.headers.set("Access-Control-Allow-Headers","Content-Type");
-        return response
+    console.error(error);
+
+    let message = "Something went wrong.";
+
+    if (
+        error?.status === 429 ||
+        error?.message?.includes("RESOURCE_EXHAUSTED")
+    ) {
+        message =
+            "The AI service is temporarily busy or the daily limit has been reached. Please try again later.";
     }
+
+    const response = NextResponse.json(
+        { message },
+        { status: 500 }
+    );
+
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "POST,OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+    return response;
+}
 }
 
 export const OPTIONS=async ()=>{
